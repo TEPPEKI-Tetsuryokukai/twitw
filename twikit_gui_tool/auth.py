@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 from modules.auth import AuthManager
+from modules.tweet import TweetTab
 import os
 
 class TwitterApp:
@@ -38,7 +39,13 @@ class TwitterApp:
         self.clear_frame()
         label = tk.Label(self.root, text=f"Welcome, {self.auth.username}!", font=("Arial", 14))
         label.pack(pady=10)
-        # 後でタブや機能をここに追加
+
+        tab_control = ttk.Notebook(self.root)
+        tweet_tab = ttk.Frame(tab_control)
+        tab_control.add(tweet_tab, text='投稿')
+        tab_control.pack(expand=1, fill='both')
+
+        TweetTab(tweet_tab, self.auth.client)
 
     def clear_frame(self):
         for widget in self.root.winfo_children():
