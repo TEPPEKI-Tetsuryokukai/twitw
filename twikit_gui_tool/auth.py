@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 from modules.auth import AuthManager
 from modules.tweet import TweetTab
+from modules.timeline import TimelineTab
 import os
 
 class TwitterApp:
@@ -41,11 +42,16 @@ class TwitterApp:
         label.pack(pady=10)
 
         tab_control = ttk.Notebook(self.root)
+
         tweet_tab = ttk.Frame(tab_control)
+        timeline_tab = ttk.Frame(tab_control)
+
         tab_control.add(tweet_tab, text='投稿')
+        tab_control.add(timeline_tab, text='タイムライン')
         tab_control.pack(expand=1, fill='both')
 
         TweetTab(tweet_tab, self.auth.client)
+        TimelineTab(timeline_tab, self.auth.client)
 
     def clear_frame(self):
         for widget in self.root.winfo_children():
